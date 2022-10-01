@@ -5,9 +5,11 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class Cliente {
+public class RelogioCliente {
 	public static void main(String[] args) throws Exception{
 		Socket cliente;
 		BufferedReader in;
@@ -15,6 +17,7 @@ public class Cliente {
 		BufferedReader inReader;
 		String mensagem;
 		String mensagemQuadro;
+		LocalTime relogio = LocalTime.now();
 
 		// incializando socket
 		cliente = new Socket("localhost", 8080);
@@ -24,9 +27,15 @@ public class Cliente {
 		out = new PrintWriter(cliente.getOutputStream(), true);
 
 		inReader = new BufferedReader(new InputStreamReader(System.in));
+		//conversão do relogio em string e vice versa 
+		String resposta = in.readLine();
+		System.out.println("recebido hora do server: "+ resposta);
+		DateTimeFormatter parser = DateTimeFormatter.ofPattern("hh:mm");
+		// ##revisar o formatter
+		relogio = 
 
 		out.println("solicitando acesso");
-		String resposta = in.readLine();
+		//String resposta = in.readLine();
 		if (resposta.contains("aguarde")) {
 			System.out.println("Retornou: " + resposta);
 			out.println("aguardando");
@@ -49,31 +58,3 @@ public class Cliente {
 		//cliente.close();
 	}
 }
-
-//	public void run() {
-//		while (true) {
-//			PrintStream escrita = null;
-//			try {
-//				escrita = new PrintStream(cliente.getOutputStream());
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//			Scanner teclado = new Scanner(System.in);
-//			// String teclado = "TEste \n teste teste \n amogos";
-//			// escrita.println(teclado);
-//			escrita.println(teclado.nextLine());
-//			break;
-//		}
-//	}
-//
-//	}catch(
-//
-//	UnknownHostException e)
-//	{
-//		e.printStackTrace();
-//	}catch(
-//	IOException e)
-//	{
-//			e.printStackTrace();
-//		}
-//}
